@@ -1,0 +1,94 @@
+{% extends 'home/base.html' %}
+
+{% load static %}
+
+{% block body %}
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__text">
+                        <h4>Shopping Cart</h4>
+                        <div class="breadcrumb__links">
+                            <a href="/">Home</a>
+                            <a href="/search/product/">Shop</a>
+                            <span>Shopping Cart</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Shopping Cart Section Begin -->
+    <section class="shopping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="shopping__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product in products%}
+                                <tr>
+                                    <td class="product__cart__item">
+                                        <div class="product__cart__item__pic">
+                                            <img src="img/shopping-cart/cart-1.jpg" alt="">
+                                        </div>
+                                        <div class="product__cart__item__text">
+                                            <h6>{{product.product.name}}</h6>
+                                            <h5>Rs.{{product.product.price}}</h5>
+                                        </div>
+                                    </td>
+                                    <td class="quantity__item">
+                                        <div class="quantity">
+                                                {{product.quantity}}
+                                        </div>
+                                    </td>
+                                    <td class="cart__price">{% widthratio product.quantity 1 product.product.price%}</td>
+                                    <td class="cart__close"><i class="fa fa-close"></i></td>
+                                </tr>
+                                {%endfor%}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+                <div class="col-lg-4">
+                    
+                    <div class="cart__total">
+                        <h6>Cart total</h6>
+                        <ul>
+                            <li>Total <span>Rs. {{total}}</span></li>
+                        </ul>
+                        <body>
+                            <form action="https://uat.esewa.com.np/epay/main" method="POST">
+                            <input value="{{total}}" name="tAmt" type="hidden">
+                            <input value="{{total}}" name="amt" type="hidden">
+                            <input value="0" name="txAmt" type="hidden">
+                            <input value="0" name="psc" type="hidden">
+                            <input value="0" name="pdc" type="hidden">
+                            <input value="EPAYTEST" name="scd" type="hidden">
+                            <input value="{{pid}}" name="pid" type="hidden">
+                            <input value="http://127.0.0.1:8000/esewa/success/" type="hidden" name="su">
+                            <input value="http://127.0.0.1:8000/product/details/1" type="hidden" name="fu">
+                            <button type="submit" class="primary-btn">Proceed to checkout</button>
+                        </form>
+                        </body>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Shopping Cart Section End -->
+
+{% endblock body %}

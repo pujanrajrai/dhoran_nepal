@@ -1,0 +1,139 @@
+{% extends 'home/base.html' %}
+{%load static%}
+{% block body %}
+<!-- Shop Section Begin -->
+<section class="shop spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="shop__sidebar">
+                    <div class="shop__sidebar__search">
+                        <form method="get" action="{% url 'home:search' %}">
+                            <input type="text" name="search" value="{{search}}" placeholder="Search...">
+                            <button type="submit"><span class="icon_search"></span></button>
+                        
+                    </div>
+                    <div class="shop__sidebar__accordion">
+                        <div class="accordion" id="accordionExample">
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseOne">Categories</a>
+                                </div>
+                                <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="shop__sidebar__categories">
+                                            <ul class="nice-scroll">
+                                                {%for category in categories%}
+                                                <li style="color:black;"></a><input type="radio" name="categories" value="{{category}}" onchange="this.form.submit()" {%if category.name == mycategory %}checked{% endif %}>&nbsp;&nbsp;&nbsp;<a class="active" href="#" >{{category.name}}</li>
+                                                {%endfor%}
+                                                
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseThree">Filter Price</a>
+                                </div>
+                                <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="shop__sidebar__price">
+                                            <ul>
+                                                <li><input type="radio" name="price" value="1" onchange="this.form.submit()" {%if myprice == '1'%}checked{% endif %}>&nbsp;&nbsp;&nbsp;<a href="#">RS. 0 - Rs. 500</a></li>
+                                                <li><input type="radio" name="price" value="2" onchange="this.form.submit()" {%if myprice == '2'%}checked{% endif %}>&nbsp;&nbsp;&nbsp;<a href="#">RS. 500 - Rs. 1000</a></li>
+                                                <li><input type="radio" name="price" value="3" onchange="this.form.submit()" {%if myprice == '3'%}checked{% endif %}>&nbsp;&nbsp;&nbsp;<a href="#">RS. 1000 - Rs. 5000</a></li>
+                                                <li><input type="radio" name="price" value="4" onchange="this.form.submit()" {%if myprice == '4'%}checked{% endif %}>&nbsp;&nbsp;&nbsp;<a href="#">RS. 5000 - Rs. 10000</a></li>
+                                                <li><input type="radio" name="price" value="5" onchange="this.form.submit()" {%if myprice == '5'%}checked{% endif %}>&nbsp;&nbsp;&nbsp;<a href="#">RS. 10000 +</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="col-lg-9">
+                
+                <div class="shop__product__option">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="shop__product__option__left">
+                                <p>Showing {{ page_obj.number }} - {{ page_obj.paginator.num_pages }} of &nbsp;{{products.count}}  results</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="shop__product__option__right">
+                                <p>Sort by Price:</p>
+                                <select name="sorting">
+                                    <option value="low" {%if mysorting == 'low'%}selected{%endif%}>Low To High</option>
+                                    <option value="high" {%if mysorting == 'high'%}selected{%endif%}>High To Low</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+                
+                <div class="row">
+                    {%if products.count == 0 %}<h1>No Product Found</h1>{% endif %}
+                    {% for product in products%}
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="product__item">
+                            <div class="product__item__pic set-bg" data-setbg="{{product.photo.url}}">
+                                {% comment %} <span class="label">New</span> {% endcomment %}
+                                <ul class="product__hover">
+                                    <li><a href="#"><img src="{% static 'landing/img/icon/heart.png' %}" alt=""><span>Add to wishlist</span></a></li>
+                                    <li><a href="#"><img src="{% static 'landing/img/icon/cart.png' %}" alt=""> <span>Add to cart</span></a></li>
+                                    {% comment %} <li><a href="#"><img src="{% static 'landing/img/icon/search.png' %}" alt=""></a></li> {% endcomment %}
+                                </ul>
+                            </div>
+                            <div class="product__item__text">
+                                <h6>{{product.name}}</h6>
+                                <a href="{% url 'home:product_details' product.pk %}" class="add-cart"><i class="fa fa-eye"></i> View</a>
+                                
+                                <h5>रु {{product.price}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    {%endfor%}
+                </div>
+                {% if is_paginated %}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="product__pagination">
+                            {% if page_obj.has_previous %}
+                            <a href="/search/product/?search={{search}}&categories={{mycategories}}&price={{myprice}}&sorting={{mysorting}}&page={{ page_obj.previous_page_number }}"><<</a>
+                            {%endif%}
+                            <a class="active" href="#">{{ page_obj.number }}</a>
+                            {% if page_obj.has_next %}
+                    <a href="/search/product/?search={{search}}&categories={{mycategories}}&price={{myprice}}&sorting={{mysorting}}&page={{ page_obj.next_page_number }}">>></a>
+                {% endif %}
+                        </div>
+                    </div>
+                </div>
+        {% comment %} <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="/cars?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="/cars?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div> {% endcomment %}
+    {% endif %}
+                
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock body %}

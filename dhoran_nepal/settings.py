@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-6-e2pdt=m_5*3*b-47k+ln$&j10m!_%n^31z5r2nb57vadekpj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     #django app
     'accounts',
     'products',
+    'home',
 
     #third party app
     'django_ckeditor_5',
@@ -133,6 +134,9 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static'),
+    )
 
 customColorPalette = [
         {
@@ -223,3 +227,5 @@ CKEDITOR_5_CONFIGS = {
         }
     }
 }
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
