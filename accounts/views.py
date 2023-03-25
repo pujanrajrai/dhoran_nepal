@@ -18,6 +18,7 @@ def     register(request):
 
         password1=data.get('password','')
         password2=data.get('password2','')
+        import pdb;pdb.set_trace()
 
         
         data['password'] = make_password(password1)
