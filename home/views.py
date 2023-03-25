@@ -1,10 +1,12 @@
-from unicodedata import category
 import uuid
 from django.shortcuts import render,redirect,HttpResponse
 from products.models import Categories, MyOrder, Product
 from django.http import Http404
 from django.views.generic import ListView
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+
+from django.db.models import F, Q, Sum
 
 # Create your views here.
 
@@ -18,6 +20,7 @@ def home(request):
     }
     return render(request,'home/home.html',context)
 
+@login_required
 def my_cart(request):
     products=MyOrder.objects.filter(my_user=request.user,is_paid=False)
     total=0
@@ -135,3 +138,29 @@ def esewa_success(request):
         return redirect('home:cart')
     else:
         return HttpResponse('failure')
+
+@login_required()
+def my_order(request):
+    my_order = MyOrder.objects.filter(my_user=request.user).filter(is_paid=True)
+    rewards_point = my_order.aggregate(Total=(Sum('product__price') / 1000))['Total']
+    print(my_order.aggregate(Total=(Sum('product__price'))))
+    orders = set(
+        my_order.values_list('order_id', 'is_paid', 'is_order_sent', 'is_order_delivered'))
+    context = {'my_orders': orders, 'rewards_point': rewards_point}
+    return render(request, 'home/my_order.html', context)
+
+# my_user = models.ForeignKey(CustomUser,on_delete=models.SET_NULL,verbose_name='my_user',null=True)
+#     product = models.ForeignKey(Product,on_delete=models.SET_NULL,verbose_name='my_product',null=True)
+#     quantity = models.IntegerField(default=1)
+#     is_paid = models.BooleanField(default=False)
+#     txid = models.CharField(max_length=100,blank=True,null=True)
+#     order_id = models.CharField(max_length=100,blank=True,null=True)
+#     is_order_placed = models.BooleanField(default=False)
+#     is_order_sent=models.BooleanField(default=False)
+#     is_order_delivered = models.BooleanField(default=False)
+
+@login_required()
+def view_order_details(request, orderid):
+    order_details = MyOrder.objects.filter(order_id=orderid).filter(my_user=request.user)
+    context = {'my_orders': order_details}
+    return render(request, 'home/order_details.html', context)

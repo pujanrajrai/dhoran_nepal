@@ -1,7 +1,14 @@
-{% load static %}
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    {{ form.media }}
-    <input type="submit">
-</form>
+
+
+{% extends 'form_base.html' %}
+{% block title %}Update Product{% endblock %}
+{% block pagetitle %}Update Product{% endblock %}
+{% block body %}
+    {% if form.errors %}{{ form.errors }}{% endif %}
+    <form method="post"  novalidate enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {{ form.media }}
+        <input value="Update Product" class="btn btn-success" type="submit">
+    </form>
+{% endblock %}

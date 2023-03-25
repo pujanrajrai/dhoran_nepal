@@ -1,3 +1,62 @@
+{% extends 'datatable_base.html' %}
+{% load static %}
+{% block title %}Categories{% endblock %}
+{% block pagetitle %}Categories{% endblock %}
+{% block addbutton %}
+    <a href="{% url 'product:categories_create' %}"
+       class="btn btn-sm btn-secondary mx-0 shadow-sm float-right">
+        <i class="fas fa-plus"></i> Add Categories
+    </a>
+{% endblock %}
+{% block table %}
+    <div class="box-content">
+            <!-- /.dropdown js__dropdown -->
+            <div class="table-responsive">
+                <table id="example" class="display compact nowrap" style="width:100%">
+                    <thead>
+                    <tr>
+                      <th>Category Name</th>
+                      <th>Action</th>
+                
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                      <th>Category Name</th>
+                      <th>Action</th>
+                
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                      {% for category in categories %}
+        <tr>
+            <td>{{ category.name }}</td>
+            <td>
+                <a href="{% url 'product:update_category' category.pk %}" class="btn btn-warning">Edit</a>&nbsp;
+                <a href="{% url 'product:delete_category' category.pk %}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    {% endfor %}
+                      {% comment %} {% for product in products %}
+                      <tr>
+                          <td>{{ product.name }}</td>
+                          <td><img src="{{ product.photo.url }}" width="120" height="100"></td>
+                          <td>-- {% for cat in product.categories.all %}{{ cat.name }}&nbsp;--{% endfor %}</td>
+                          <td>{{ product.price }}</td>
+                          <td>{{ product.stock }}</td>
+                          <td>
+                              <a class="btn btn-warning" href="{% url 'product:product_update' product.pk %}">Edit</a>&nbsp;
+                              <a class="btn btn-danger" href="{% url 'product:delete_product' product.pk %}">Delete</a>
+                          </td>
+                      </tr>
+                  {% endfor %} {% endcomment %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,15 +89,7 @@ tr:nth-child(even) {
     <th>Category Name</th>
     <th>Action</th>
   </tr>
-    {% for category in categories %}
-        <tr>
-            <td>{{ category.name }}</td>
-            <td>
-                <a href="{% url 'product:update_category' category.pk %}">Edit</a>&nbsp;
-                <a href="{% url 'product:delete_category' category.pk %}">Delete</a>
-            </td>
-        </tr>
-    {% endfor %}
+    
 
 
 </table>

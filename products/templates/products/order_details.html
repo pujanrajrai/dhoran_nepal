@@ -1,0 +1,50 @@
+{% extends 'datatable_base.html' %}
+{% load static %}
+{% block title %}Order{% endblock %}
+{% block pagetitle %}Order{% endblock %}
+{% block addbutton %}
+    
+{% endblock %}
+{% block table %}
+    
+            <!-- /.dropdown js__dropdown -->
+            <div class="table-responsive">
+                <table id="example" class="display compact nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>S.N</th>
+                            <th>Products</th>
+                            <th>Quantity</th>
+                            <th>Per Unit Price</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>S.N</th>
+                            <th>Products</th>
+                            <th>Quantity</th>
+                            <th>Per Unit Price</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {% for order in my_orders %}
+
+    <tr>
+        <td class="align-middle">{{forloop.counter}}</td>
+        <td class="align-middle"><img src="{{ order.product.photo.url }}" alt=""
+                                      style="width: 50px;">
+            {{ order.product.name }}
+        </td>
+        <td class="align-middle">{{ order.quantity }}</td>
+        <td class="align-middle">{{ order.product.price }}</td>
+
+
+    </tr>
+
+{% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

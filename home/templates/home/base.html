@@ -39,14 +39,18 @@
 
             <div class="offcanvas__links">
                 <a href="{%url 'accounts:login'%}">Sign in</a>     
-                
             </div>
             {%else%}
             <div class="offcanvas__top__hover">
                 <span>Profile <i class="arrow_carrot-down"></i></span>
                                 <ul>
+                                    {% if request.user.is_superuser%}
+                                    <a href="{% url 'product:product_list' %}"><li>Dashboard</li></a>
+
+                                    {%else%}
                                     <a href="{% url 'accounts:profile' request.user %}"><li>Profile</li></a>
-                                    <li>My Order</li>
+
+                                    {%endif %}
                                     <a href="{% url 'accounts:logout' %}"><li>Logout</li></a>
                 </ul>
             </div>
@@ -57,9 +61,8 @@
         
         <div class="offcanvas__nav__option">
             <a href="#" class="search-switch"><img src="{% static 'landing/img/icon/search.png' %}" alt=""></a>
-            <a href="#"><img src="{% static 'landing/img/icon/heart.png' %}" alt=""></a>
-            <a href="#"><img src="{% static 'landing/img/icon/cart.png' %}" alt=""> <span>0</span></a>
-            <div class="price">$0.00</div>
+            <a href="{% url 'home:my_order' %}"><img src="{% static 'landing/img/icon/heart.png' %}" alt=""></a>
+            <a href="{% url 'home:cart' %}"><img src="{% static 'landing/img/icon/cart.png' %}" alt=""> <span>0</span></a>
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__text">
@@ -91,8 +94,13 @@
                             <div class="header__top__hover">
                                 <span>Profile <i class="arrow_carrot-down"></i></span>
                                 <ul>
+                                    {% if request.user.is_superuser%}
+                                    <a href="{% url 'product:product_list' %}"><li>Dashboard</li></a>
+
+                                    {%else%}
                                     <a href="{% url 'accounts:profile' request.user %}"><li>Profile</li></a>
-                                    <li>My Order</li>
+
+                                    {%endif %}
                                     <a href="{% url 'accounts:logout' %}"><li>Logout</li></a>
                                 </ul>
                             </div>
@@ -124,16 +132,14 @@
                         <ul>
                             <li class="active"><a href="/">Home</a></li>
                             <li><a href="{% url 'home:search' %}">All Clothes</a></li>
-                            <li><a href="#">Contacts</a></li>
                         </ul>
                     </nav>
                 </div>
                 <div class="col-lg-3 col-md-3">
                     <div class="header__nav__option">
                         <a href="#" class="search-switch"><img src="{% static 'landing/img/icon/search.png' %}" alt=""></a>
-                        <a href="#"><img src="{% static 'landing/img/icon/heart.png' %}" alt=""></a>
-                        <a href="{% url 'home:cart' %}"><img src="{% static 'landing/img/icon/cart.png' %}" alt=""> <span>0</span></a>
-                        <div class="price">$0.00</div>
+                        <a href="{% url 'home:my_order' %}"><img src="{% static 'landing/img/icon/heart.png' %}" alt=""></a>
+                        <a href="{% url 'home:cart' %}"><img src="{% static 'landing/img/icon/cart.png' %}" alt=""></a>
                     </div>
                 </div>
             </div>
@@ -179,10 +185,7 @@
                 </div>
                 <div class="col-lg-2 col-md-3 col-sm-6">
                     <div class="footer__widget">
-                        <h6>Contact</h6>
                         <ul>
-                            <li><a href="#">Contact Us</a></li>
-                            <li><a href="#">About Us</a></li>
                         </ul>
                     </div>
                 </div>

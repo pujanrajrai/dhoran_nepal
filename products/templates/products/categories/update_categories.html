@@ -1,5 +1,13 @@
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit">
-</form>
+
+
+{% extends 'form_base.html' %}
+{% block title %}Update Categories{% endblock %}
+{% block pagetitle %}Update Categories{% endblock %}
+{% block body %}
+    {% if form.errors %}{{ form.errors }}{% endif %}
+    <form method="post"  enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input value="Update Categories" class="btn btn-success" type="submit">
+    </form>
+{% endblock %}

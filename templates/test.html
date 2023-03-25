@@ -1,0 +1,255 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Raman Associates">
+    <meta name="author" content="">
+
+    <title>Notification - Raman Associates</title>
+
+    <!-- Favicon -->
+    <link href="{% static 'assets/images/logo.png'%}" rel="icon">
+
+    <link rel="stylesheet" href="{% static 'assets/plugin/poppins_font/poppins_font.css'%}">
+
+    <!-- Material Design Icon -->
+    <link rel="stylesheet" href="{% static 'assets/fonts/material-design/css/materialdesignicons.css'%}">
+
+    <link rel="stylesheet" href="{% static 'assets/plugin/bootstrap/css/bootstrap5.min.css'%}">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="{% static 'assets/style.css'%}">
+</head>
+
+<body>
+<style>
+    sup {
+        padding: 2px 5px;
+        border-radius: 30%;
+        background: var(--black);
+        color: var(--white);
+    }
+
+    .notification .old-notify {
+        background-color: var(--tertiary);
+        color: var(--white);
+    }
+
+    .notification .new-notify {
+        background-color: var(--black);
+        color: var(--white);
+    }
+
+    .notification .old-notify a, .notification .new-notify a {
+        color: var(--lightgray);
+        text-decoration: underline;
+    }
+</style>
+<!-- Back to top button -->
+<button type="button" class="btn btn-primary btn-floating btn-sm" title="Back To Top" id="btn-back-to-top">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<div class="main-menu">
+    <header class="header">
+        <a href="index.html" class="logo">
+            <span class="ico fa fa-gavel"></span> Raman Associates
+        </a>
+        <button type="button" class="button-close fa fa-times js__menu_close"></button>
+        <div class="user">
+            <a href="#" class="avatar"><img src="{% static 'assets/images/logo.png'%}" alt=""></a>
+        </div>
+        <!-- /.user -->
+    </header>
+    <!-- /.header -->
+    <div class="content">
+        <div class="navigation">
+            <h5 class="title">Home</h5>
+            <!-- /.title -->
+            <ul class="menu js__accordion">
+                <li class="">
+                    <a class="" href="index.html"><i class="menu-icon mdi mdi-view-dashboard"></i><span>&nbsp;
+                                Dashboard</span></a>
+                </li>
+            </ul>
+            <!-- /.menu js__accordion -->
+            <h5 class="title">Component</h5>
+            <!-- /.title -->
+            <ul class="menu js__accordion">
+                <li class="current active">
+                    <a class=" parent-item js__control" href="#"><i
+                            class="menu-icon mdi mdi-file"></i><span>Pages</span><span
+                            class="menu-arrow fa fa-angle-down"></span></a>
+                    <ul class="sub-menu js__content">
+                        <li><a href="tables-datatable.html"><i class="fa fa-table"></i> &nbsp; Data Table</a></li>
+                        <li><a href="calendar.html"><i class="fa fa-calendar"></i> &nbsp;
+                            Calendar</a>
+                        </li>
+                        <li><a href="404.html"><i class="fa fa-bug"></i> &nbsp; 404 Error</a></li>
+                        <li><a href="form-validation.html"><i class="fa fa-book"></i> &nbsp; Form
+                            Validation</a></li>
+                        <li><a href="form.html"><i class="fa fa-book"></i> &nbsp; Form</a></li>
+                        <li><a href="login.html"><i class="fa fa-lock"></i> &nbsp; Login</a></li>
+                        <li class="current"><a href="#"><i class="fa fa-bell"></i> &nbsp; Notification
+                            <sup>3</sup></a>
+                        </li>
+                    </ul>
+                    <!-- /.sub-menu js__content -->
+                </li>
+            </ul>
+            <!-- /.menu js__accordion -->
+        </div>
+        <!-- /.navigation -->
+    </div>
+    <!-- /.content -->
+</div>
+<!-- /.main-menu -->
+
+<div class="fixed-navbar">
+    <div class="pull-left">
+        <button type="button"
+                class="menu-mobile-button glyphicon glyphicon-menu-hamburger js__menu_mobile"></button>
+        <h1 class="page-title">Notification</h1>
+        <!-- /.page-title -->
+    </div>
+    <!-- /.pull-left -->
+</div>
+<!-- /.fixed-navbar -->
+
+<div id="wrapper">
+    <div class="main-content">
+        <div class="notification container-fluid">
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="alert old-notify" style="border-right: 8px solid var(--danger)">
+                        <i class="fa fa-bell"></i> &nbsp; Notification
+                        <!-- <a href="">
+                            Message.
+                        </a> -->
+                        <a class="btn btn-primary btn-sm" target="__blank" href="#">
+                            <!-- <i class="fa fa-edit"></i> -->
+                            Message
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="alert old-notify">
+                        <i class="fa fa-bell"></i> &nbsp; Notification <a href="">
+                        Message.</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="alert old-notify">
+                        <i class="fa fa-bell"></i> &nbsp; Notification <a href="">
+                        Message.</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="alert new-notify">
+                        <i class="fa fa-bell"></i> &nbsp; Notification
+                        <!-- <a href="">Message.</a> -->
+                        <a class="btn btn-primary btn-sm" target="__blank" href="#">
+                            <!-- <i class="fa fa-edit"></i> -->
+                            Message
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="alert new-notify" style="border-left: 8px solid var(--danger)">
+                        <i class="fa fa-bell"></i> &nbsp; Notification <a href="">
+                        <span class="badge">Message</span>
+                    </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="alert new-notify">
+                        <i class="fa fa-bell"></i> &nbsp; Notification <a href="">
+                        Message.</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="old-notify alert" style="border-left: 8px solid var(--danger)">
+                <i class="fa fa-bell"></i> &nbsp; Notification <a href="">
+                Messages.</a>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="alert new-notify">
+                        <i class="fa fa-bell"></i> &nbsp; Notification <a href="">
+                        Messages.</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="alert new-notify">
+                        <i class="fa fa-bell"></i> &nbsp; Notification <a href="">
+                        Message.</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="alert new-notify">
+                        <i class="fa fa-bell"></i> &nbsp; Notification <a href="" class="text-decoration-underline">
+                        <i>Message</i></a>.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav aria-label="Page navigation example" class="text-center">
+            <ul class="pagination shadow">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <!-- <span class="sr-only">Previous</span> -->
+                    </a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <!-- <span class="sr-only">Next</span> -->
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <!-- /.main-content -->
+</div>
+<!--/#wrapper -->
+
+<footer class="sticky-footer bg-light">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+                <span>Copyright &copy; Raman Associates,
+                    <script
+                            type="text/JavaScript"> var theDate = new Date();
+                    document.write(theDate.getFullYear()) </script>
+                    <p class="developedby">Designed and Developed by, <a href="https://itnepalsolutions.com/"
+                                                                         target="_blank">IT
+                            Nepal Solutions</a></p>
+                </span>
+        </div>
+    </div>
+</footer>
+
+<script src="{% static 'assets/scripts/all.min.js'%}"></script>
+<script src="{% static 'assets/scripts/jquery.min.js'%}"></script>
+<script src="{% static 'assets/plugin/bootstrap/js/bootstrap.min.js'%}"></script>
+<script src="{% static 'assets/plugin/nprogress/nprogress.js'%}"></script>
+
+<script src="{% static 'assets/scripts/main.js"'%}></script>
+
+</body>
+
+</html>
+

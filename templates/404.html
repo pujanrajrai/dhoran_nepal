@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Raman Associates">
+    <meta name="author" content="">
+
+    <title>404 - Raman Associates</title>
+
+    <link rel="stylesheet" href="{% static 'assets/plugin/poppins_font/poppins_font.css' %}">
+
+    <!-- Material Design Icon -->
+    <link rel="stylesheet" href="{% static 'assets/fonts/material-design/css/materialdesignicons.css' %}">
+
+    <!-- Searchable Dropdown -->
+    <link rel="stylesheet" href="{% static 'assets/plugin/bootstrap-select/css/bootstrap-select.css' %}"/>
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="{% static 'assets/style.css' %}">
+
+</head>
+
+<body>
+
+
+<div id="wrapper">
+
+    <div class="main-content">
+        <div class="row small-spacing">
+            <div class="col-xs-12">
+                <div class="box-content">
+
+                    <div class="container-fluid">
+
+                        <!-- 404 Error Text -->
+                        <div class="text-center">
+                            <center>
+                                <div class="error mx-auto" data-text="404">404</div>
+                            </center>
+                            <p class="lead text-gray-800 mb-5">Page Not Found</p>
+                            <a href="/">&larr; Back to Dashboard</a>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- /.box-content -->
+            </div>
+
+            <!-- /.col-xs-12 -->
+        </div>
+
+    </div>
+
+    <!-- /.main-content -->
+</div>
+<!--/#wrapper -->
+<center>
+    <footer class="footer">
+        <ul class="list-inline">
+            <li><span>Copyright &copy; Raman Associates,
+						<script
+                                type="text/JavaScript"> var theDate = new Date();
+                        document.write(theDate.getFullYear()) </script>
+						<p class="developedby">Designed and Developed by, <a href="https://itnepalsolutions.com/"
+                                                                             target="_blank" class="badge footer-badge">IT
+								Nepal Solutions</a></p>
+					</span></li>
+
+        </ul>
+    </footer>
+</center>
+
+<script src="{% static 'assets/scripts/all.min.js' %}"></script>
+<script src="{% static 'assets/scripts/jquery.min.js' %}"></script>
+<script src="{% static 'assets/plugin/nprogress/nprogress.js' %}"></script>
+<script src="{% static 'assets/scripts/main.js' %}"></script>
+
+</body>
+
+</html>

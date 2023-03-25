@@ -1,5 +1,14 @@
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit">
-</form>
+
+
+{% extends 'form_base.html' %}
+{% block title %}Create Categories{% endblock %}
+{% block pagetitle %}Create Categories{% endblock %}
+{% block body %}
+    {% if form.errors %}{{ form.errors }}{% endif %}
+    <form method="post"  novalidate enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {{ form.media }}
+        <input value="Create Categories" class="btn btn-success" type="submit">
+    </form>
+{% endblock %}

@@ -10,8 +10,9 @@ from .forms import CategoryForm,ProductForm
 from products.models import Categories, MyOrder,Product
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from django.db.models import F
+from django.db.models import F, Q, Sum
 
+from django.contrib.auth.decorators import login_required
 
 # listing product categories
 class ProductCategoriesListView(ListView):
@@ -110,4 +111,34 @@ def add_to_cart(request,pk):
                                 f'Added To cart.')
     except Exception as e:
         print(e)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required()
+def my_order(request):
+    my_order = MyOrder.objects.filter(is_paid=True)
+    rewards_point = my_order.aggregate(Total=(Sum('product__price') / 1000))['Total']
+    print(my_order.aggregate(Total=(Sum('product__price'))))
+    orders = set(
+        my_order.values_list('order_id', 'is_paid', 'is_order_sent', 'is_order_delivered'))
+    context = {'my_orders': orders, 'rewards_point': rewards_point}
+    return render(request, 'products/my_order.html', context)
+
+@login_required()
+def view_order_details(request, orderid):
+    order_details = MyOrder.objects.filter(order_id=orderid)
+    context = {'my_orders': order_details}
+    return render(request, 'products/order_details.html', context)
+
+
+
+@login_required()
+def send_item(request, orderid):
+    MyOrder.objects.filter(order_id=orderid).update(is_order_sent=True)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required()
+def item_delivered(request, orderid):
+    MyOrder.objects.filter(order_id=orderid).update(is_order_delivered=True)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

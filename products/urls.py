@@ -16,6 +16,12 @@ urlpatterns = [
     path('update/product/<str:pk>', views.ProductUpdateView.as_view(), name='product_update'),
     path('delete/product/<str:pk>', views.ProductDeleteView.as_view(), name='delete_product'),
 
-    path('addto/cart/<str:pk>/',views.add_to_cart,name="add_to_cart")
+    path('addto/cart/<str:pk>/',views.add_to_cart,name="add_to_cart"),
+    path('order/',views.my_order,name="order_list"),
+    path('order_details/<str:orderid>', views.view_order_details, name='view_order_details'),
+    path('send_item/<str:orderid>', views.send_item, name='send_item'),
+    path('delivered/<str:orderid>', views.item_delivered, name='item_delivered'),
+
 
 ]
+

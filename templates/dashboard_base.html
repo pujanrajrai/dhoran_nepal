@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<!-- <html lang="en" oncontextmenu="return false;"> -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Home </title>
+
+    <!-- Favicon -->
+    <link href="{% static 'assets/images/logo.png' %}" rel="icon">
+
+    <link rel="stylesheet" href="{% static 'assets/plugin/poppins_font/poppins_font.css' %}">
+
+    <!-- Material Design Icon -->
+    <link rel="stylesheet" href="{% static 'assets/fonts/material-design/css/materialdesignicons.css' %}">
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="{% static 'assets/style.css' %}">
+
+</head>
+
+<body>
+
+<!-- Back to top button -->
+<button type="button" class="btn btn-primary btn-floating btn-sm" title="Back To Top" id="btn-back-to-top">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+{% include 'navbar.html' %}
+<!-- /.main-menu -->
+
+<div class="fixed-navbar">
+    <div class="pull-left">
+        <button type="button" class="menu-mobile-button glyphicon glyphicon-menu-hamburger js__menu_mobile"></button>
+        <h1 class="page-title">Dashboard</h1>
+        <!-- /.page-title -->
+    </div>
+
+    <!-- /.pull-left -->
+</div>
+<!-- /.fixed-navbar -->
+
+<div id="wrapper">
+    <div class="main-content">
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'success' %}
+                    <div class="alert alert-success alert-dismissible">
+                {% elif message.tags == 'errors' %}
+                    <div class="alert alert-error alert-dismissible">
+                {% endif %}
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+        {% block body %}{% endblock %}
+
+
+        </div>
+        <!-- /.main-content -->
+    </div>
+    <!--/#wrapper -->
+
+
+    <script src="{% static 'assets/scripts/all.min.js' %}"></script>
+    <script src="{% static 'assets/scripts/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/plugin/nprogress/nprogress.js' %}"></script>
+    <script src="{% static 'assets/scripts/main.js' %}"></script>
+    
+
+</body>
+
+</html>
