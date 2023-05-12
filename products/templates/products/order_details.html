@@ -14,6 +14,7 @@
                         <tr>
                             <th>S.N</th>
                             <th>Products</th>
+                            <th>User</th>
                             <th>Quantity</th>
                             <th>Per Unit Price</th>
                         </tr>
@@ -22,6 +23,7 @@
                         <tr>
                             <th>S.N</th>
                             <th>Products</th>
+                            <th>User</th>
                             <th>Quantity</th>
                             <th>Per Unit Price</th>
                         </tr>
@@ -35,6 +37,8 @@
                                       style="width: 50px;">
             {{ order.product.name }}
         </td>
+        <td class="align-middle">
+            {%if not order.product.user or order.product.user.is_superuser %}Admin{%else%}{{ order.product.user.email }}{%endif%}</td>
         <td class="align-middle">{{ order.quantity }}</td>
         <td class="align-middle">{{ order.product.price }}</td>
 

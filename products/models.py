@@ -23,15 +23,20 @@ class Condition(models.Model):
 
 
 class Product(models.Model):
-    photo = models.ImageField(upload_to='products/image/', verbose_name='Product Image')
+    user = models.ForeignKey(
+        CustomUser, on_delete=models.PROTECT, null=True, blank=True)
+    photo = models.ImageField(
+        upload_to='products/image/', verbose_name='Product Image')
     name = models.CharField(max_length=100, verbose_name='Product Name')
     categories = models.ManyToManyField(Categories, verbose_name='Categories')
-    tags = models.CharField(max_length=500,blank=True,null=True,verbose_name='Product Tags')
+    tags = models.CharField(max_length=500, blank=True,
+                            null=True, verbose_name='Product Tags')
     price = models.PositiveIntegerField(verbose_name='Price')
     description = CKEditor5Field('Description', config_name='extends')
     stock = models.PositiveIntegerField(verbose_name='Total Stock')
-    condition = models.ForeignKey(Condition, on_delete=models.CASCADE, verbose_name='Product Current Condition')
-    total_sales=models.PositiveBigIntegerField(default=0)
+    condition = models.ForeignKey(
+        Condition, on_delete=models.CASCADE, verbose_name='Product Current Condition')
+    total_sales = models.PositiveBigIntegerField(default=0)
     create_date = models.DateField(auto_now=True)
     total_click = models.PositiveIntegerField(default=0)
     is_available = models.BooleanField(default=True)
@@ -42,14 +47,14 @@ class Product(models.Model):
 
 
 class MyOrder(models.Model):
-    my_user = models.ForeignKey(CustomUser,on_delete=models.SET_NULL,verbose_name='my_user',null=True)
-    product = models.ForeignKey(Product,on_delete=models.SET_NULL,verbose_name='my_product',null=True)
+    my_user = models.ForeignKey(
+        CustomUser, on_delete=models.SET_NULL, verbose_name='my_user', null=True)
+    product = models.ForeignKey(
+        Product, on_delete=models.SET_NULL, verbose_name='my_product', null=True)
     quantity = models.IntegerField(default=1)
     is_paid = models.BooleanField(default=False)
-    txid = models.CharField(max_length=100,blank=True,null=True)
-    order_id = models.CharField(max_length=100,blank=True,null=True)
+    txid = models.CharField(max_length=100, blank=True, null=True)
+    order_id = models.CharField(max_length=100, blank=True, null=True)
     is_order_placed = models.BooleanField(default=False)
-    is_order_sent=models.BooleanField(default=False)
+    is_order_sent = models.BooleanField(default=False)
     is_order_delivered = models.BooleanField(default=False)
-
-    

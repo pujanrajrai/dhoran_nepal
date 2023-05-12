@@ -13,6 +13,7 @@
         <div class="navigation">
             <h5 class="title">Home</h5>
             <!-- /.title -->
+
             {% if request.user.is_superuser %}
             <ul class="menu js__accordion">
                     <li class="{% if active == 'dashboard' %}current{% endif %}">
@@ -31,72 +32,25 @@
                         <a class="" href="{% url 'product:order_list' %}"><i class="menu-icon mdi mdi-view-dashboard"></i><span>Order</span></a>
                     </li>
                 </ul>
-
-
-                {% comment %} <ul class="menu js__accordion">
+                {%else%}
+                <ul class="menu js__accordion">
                     <li class="{% if active == 'dashboard' %}current{% endif %}">
-                        <a class="" href="/"><i class="menu-icon mdi mdi-view-dashboard"></i><span>Dashboard</span></a>
-                    </li>
-                </ul>
-
-                <!-- /.menu js__accordion -->
-                <h5 class="title">Component</h5>
-                <!-- /.title -->
-                <ul class="menu js__accordion">
-                    <li class="{% if active == 'users' %}current{% endif %}">
-                        <a class="" href="{% url 'accounts:list_all_user' %}"><i
-                                class="menu-icon mdi mdi-account-multiple "></i><span>Users</span></a>
+                        <a class="" href="{% url 'accounts:profile' request.user %}"><i class="menu-icon mdi mdi-view-dashboard"></i><span>Profile</span></a>
                     </li>
                 </ul>
                 <ul class="menu js__accordion">
-                    <li class="{% if active == 'cases' %}current{% endif %}">
-                        <a class="" href="{% url 'cases:ongoing_cases_list_view' %}"><i
-                                class="menu-icon mdi mdi-gavel"></i><span>Cases</span></a>
+                    <li class="{% if active == 'dashboard' %}current{% endif %}">
+                        <a class="" href="{% url 'product:product_list' %}"><i class="menu-icon mdi mdi-view-dashboard"></i><span>My Product</span></a>
                     </li>
                 </ul>
-
-                <ul class="menu js__accordion">
-                    <li class="{% if active == 'decision' %}current{% endif %}">
-                        <a class="" href="{% url 'cases:decision:all_decision' %}"><i
-                                class="menu-icon mdi mdi-book"></i><span>Court Decision</span></a>
-                    </li>
-                </ul>
-
-                <ul class="menu js__accordion">
-                    <li class="{% if active == 'case_type' %}current{% endif %}">
-                        <a class="" href="{% url 'cases:list_case_type' %}"><i
-                                class="menu-icon mdi mdi-briefcase "></i><span>Case Type</span></a>
-                    </li>
-                </ul>
-                <ul class="menu js__accordion">
-                    <li class="{% if active == 'court' %}current{% endif %}">
-                        <a class="" href="{% url 'cases:court_list' %}"><i
-                                class="menu-icon mdi mdi-home"></i><span>Court</span></a>
-                    </li>
-                </ul>
-                <ul class="menu js__accordion">
-                    <li class="{% if active == 'file_type' %}current{% endif %}">
-                        <a class="" href="{% url 'cases:list_file_type' %}"><i
-                                class="menu-icon mdi mdi-file "></i><span>File Type</span></a>
-                    </li>
-                </ul>
-
-
-
-                <ul class="menu js__accordion">
-                    <li class="{% if active == 'calendar' %}current{% endif %}">
-                        <a class="" href="{% url 'calendar:admin_calendar' %}"><i
-                                class="menu-icon mdi mdi-calendar "></i><span>Calendar</span></a>
-                    </li>
-                </ul>
-                <ul class="menu js__accordion">
-                    <li class="{% if active == 'notification' %}current{% endif %}">
-                        <a class="" href="{% url 'notifications:admin_notification' %}"><i
-                                class="menu-icon mdi mdi-bell "></i><span>Notification <sup id="new_notification"></sup></span></a>
-                    </li>
-                </ul> 
-                {% endcomment %}
+                
                 {% endif %}
+
+                <ul class="menu js__accordion">
+                    <li class="{% if active == 'dashboard' %}current{% endif %}">
+                        <a class="" href="{% url 'accounts:logout' %}"><i class="menu-icon mdi mdi-view-dashboard"></i><span>Logout</span></a>
+                    </li>
+                </ul>
             
 
         </div>

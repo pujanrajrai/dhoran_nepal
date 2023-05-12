@@ -6,8 +6,8 @@ from django.http import Http404
 # Create your views here.
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from .forms import CategoryForm,ProductForm
-from products.models import Categories, MyOrder,Product
+from .forms import CategoryForm, ProductForm
+from products.models import Categories, MyOrder, Product
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.db.models import F, Q, Sum
@@ -15,6 +15,8 @@ from django.db.models import F, Q, Sum
 from django.contrib.auth.decorators import login_required
 
 # listing product categories
+
+
 class ProductCategoriesListView(ListView):
     model = Categories
     context_object_name = 'categories'
@@ -59,6 +61,14 @@ class ProductListView(ListView):
     context_object_name = 'products'
     template_name = 'products/product/product_list.html'
 
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            queryset = Product.objects.filter(
+                Q(user=None) | Q(user__is_superuser=True))
+        else:
+            queryset = Product.objects.filter(user=self.request.user)
+        return queryset
+
 
 # creating product
 class ProductCreateView(SuccessMessageMixin, CreateView):
@@ -69,8 +79,14 @@ class ProductCreateView(SuccessMessageMixin, CreateView):
     def get_success_url(self):
         return reverse_lazy('product:product_list')
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
 # updating product categories
+
+
 class ProductUpdateView(SuccessMessageMixin, UpdateView):
     form_class = ProductForm
     model = Product
@@ -92,23 +108,25 @@ class ProductDeleteView(SuccessMessageMixin, DeleteView):
         return reverse_lazy('product:product_list')
 
 
-def add_to_cart(request,pk):
+def add_to_cart(request, pk):
     try:
-            user=request.user
-            product=Product.objects.get(pk=pk)
-    
-            my_order=MyOrder.objects.filter(my_user=user,product=product,is_paid=False)
-            if my_order.exists():
-                my_order.update(quantity=F('quantity')+request.GET.get('quantity',1))
-            else:
-                my_cart=MyOrder(
-                    my_user=user,
-                    product=product,   
-                    quantity=request.GET.get('quantity',1)         
-                )
-                my_cart.save()
-                messages.success(request,
-                                f'Added To cart.')
+        user = request.user
+        product = Product.objects.get(pk=pk)
+
+        my_order = MyOrder.objects.filter(
+            my_user=user, product=product, is_paid=False)
+        if my_order.exists():
+            my_order.update(quantity=F('quantity') +
+                            request.GET.get('quantity', 1))
+        else:
+            my_cart = MyOrder(
+                my_user=user,
+                product=product,
+                quantity=request.GET.get('quantity', 1)
+            )
+            my_cart.save()
+            messages.success(request,
+                             f'Added To cart.')
     except Exception as e:
         print(e)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
@@ -117,19 +135,20 @@ def add_to_cart(request,pk):
 @login_required()
 def my_order(request):
     my_order = MyOrder.objects.filter(is_paid=True)
-    rewards_point = my_order.aggregate(Total=(Sum('product__price') / 1000))['Total']
+    rewards_point = my_order.aggregate(
+        Total=(Sum('product__price') / 1000))['Total']
     print(my_order.aggregate(Total=(Sum('product__price'))))
     orders = set(
         my_order.values_list('order_id', 'is_paid', 'is_order_sent', 'is_order_delivered'))
     context = {'my_orders': orders, 'rewards_point': rewards_point}
     return render(request, 'products/my_order.html', context)
 
+
 @login_required()
 def view_order_details(request, orderid):
     order_details = MyOrder.objects.filter(order_id=orderid)
     context = {'my_orders': order_details}
     return render(request, 'products/order_details.html', context)
-
 
 
 @login_required()

@@ -44,13 +44,11 @@
             <div class="offcanvas__top__hover">
                 <span>Profile <i class="arrow_carrot-down"></i></span>
                                 <ul>
-                                    {% if request.user.is_superuser%}
+
                                     <a href="{% url 'product:product_list' %}"><li>Dashboard</li></a>
 
-                                    {%else%}
-                                    <a href="{% url 'accounts:profile' request.user %}"><li>Profile</li></a>
+                                    
 
-                                    {%endif %}
                                     <a href="{% url 'accounts:logout' %}"><li>Logout</li></a>
                 </ul>
             </div>
@@ -94,13 +92,10 @@
                             <div class="header__top__hover">
                                 <span>Profile <i class="arrow_carrot-down"></i></span>
                                 <ul>
-                                    {% if request.user.is_superuser%}
+                                    
                                     <a href="{% url 'product:product_list' %}"><li>Dashboard</li></a>
 
-                                    {%else%}
-                                    <a href="{% url 'accounts:profile' request.user %}"><li>Profile</li></a>
-
-                                    {%endif %}
+                                    
                                     <a href="{% url 'accounts:logout' %}"><li>Logout</li></a>
                                 </ul>
                             </div>
@@ -132,9 +127,12 @@
                         <ul>
                             <li class="active"><a href="/">Home</a></li>
                             <li><a href="{% url 'home:search' %}">All Clothes</a></li>
+                            <li><a href="{% url 'home:view_customer_product' %}">Customer's Product</a></li>
                         </ul>
                     </nav>
                 </div>
+                
+                
                 <div class="col-lg-3 col-md-3">
                     <div class="header__nav__option">
                         <a href="#" class="search-switch"><img src="{% static 'landing/img/icon/search.png' %}" alt=""></a>
@@ -142,6 +140,9 @@
                         <a href="{% url 'home:cart' %}"><img src="{% static 'landing/img/icon/cart.png' %}" alt=""></a>
                     </div>
                 </div>
+                {%block cust%}
+                {%endblock%}
+                
             </div>
             <div class="canvas__open"><i class="fa fa-bars"></i></div>
         </div>
