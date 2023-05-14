@@ -145,7 +145,7 @@ def esewa_success(request):
         ).update(
             is_paid=True
         )
-        return redirect('home:view_order_details')
+        return redirect(f'/order_details/{data["oid"]}')
     else:
         return HttpResponse('failure')
 
