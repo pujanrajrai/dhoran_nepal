@@ -58,3 +58,4 @@ class MyOrder(models.Model):
     is_order_placed = models.BooleanField(default=False)
     is_order_sent = models.BooleanField(default=False)
     is_order_delivered = models.BooleanField(default=False)
+
