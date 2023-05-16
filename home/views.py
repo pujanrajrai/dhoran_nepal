@@ -26,7 +26,7 @@ def home(request):
 @login_required
 def my_cart(request):
     oid = uuid.uuid4()
-    products = MyOrder.objects.filter(my_user=request.user, is_paid=False)
+    products = MyOrder.objects.filter(my_user=request.user, is_order=False)
     products.update(order_id=oid)
     total = 0
     for product in products:
@@ -121,7 +121,17 @@ class ProductSearch(ListView):
         return context
 
 
-def esewa_success(request):
+def payment(request):
+    method = request.POST.get('method')
+    oid = request.POST.get('pid')
+    if method == "cod":
+        MyOrder.objects.filter(
+            order_id=oid
+        ).update(
+            is_paid=False,
+            is_order=True
+        )
+        return redirect(f'/order_details/{oid}')
 
     import xml.etree.ElementTree as ET
     data = request.GET.copy()
@@ -143,7 +153,8 @@ def esewa_success(request):
         MyOrder.objects.filter(
             order_id=data['oid']
         ).update(
-            is_paid=True
+            is_paid=True,
+            is_order=True
         )
         return redirect(f'/order_details/{data["oid"]}')
     else:

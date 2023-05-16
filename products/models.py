@@ -53,9 +53,10 @@ class MyOrder(models.Model):
         Product, on_delete=models.SET_NULL, verbose_name='my_product', null=True)
     quantity = models.IntegerField(default=1)
     is_paid = models.BooleanField(default=False)
+    is_order = models.BooleanField(default=False)
     txid = models.CharField(max_length=100, blank=True, null=True)
     order_id = models.CharField(max_length=100, blank=True, null=True)
     is_order_placed = models.BooleanField(default=False)
     is_order_sent = models.BooleanField(default=False)
     is_order_delivered = models.BooleanField(default=False)
-
+    payment_method = models.CharField(max_length=50, null=True, blank=True)
